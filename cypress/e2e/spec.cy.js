@@ -8,11 +8,6 @@ describe('template spec', () => {
           cy.wrap($element).click();
         }
       }
-
-      // cy.get('.form_line').each(($element => {
-      //   var form_line_arr = 
-      //   cy.log($element);
-      // }))
     }))
 
     cy.get('nav > ul > :nth-child(1) > a').click();
