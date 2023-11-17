@@ -10,8 +10,9 @@ describe('template spec', () => {
       }
     }))
 
-    cy.get('nav > ul > :nth-child(1) > a').click();
-    cy.get(':nth-child(1) > .ci_desc > ul > :nth-child(2) > .bl_arr_bttn > span').click();
+    cy.get('a[href="/az/individuals/loans/"]').first().click();
+    cy.get('a[class="bl_arr_bttn"]').first().click();
+
     cy.get('.cd_i_desc').each(($element => {
       if ($element[0].children[0].innerText === "Məbləğ") {
         var mebleg_arr = $element[0].children[1].innerText.split("-");
@@ -20,15 +21,17 @@ describe('template spec', () => {
       }
     }))
 
-    cy.get("input[name='name']").type("Maryam");
-    cy.get("input[name='surname']").type("Khanmadova");
-    cy.get("input[name='salary']").type("500");
-    cy.get("[name='work']").type("teacher");
+    const input = ["name", "surname", "salary", "work"];
+    let values = ["Maryam", "Khanmadova", "500", "teacher", '070'];
+    let i = -1;
+    for (const name of input) {
+      i++;
+      cy.get(`input[name='${name}']`).should('be.enabled').type(values[i]);
+    }
+
     cy.get("[name='prefix']").select('070');
+    cy.get('.mask_phone_short').type("000 00 00");
 
-    // cy.log(cy.get("input[name='phone']"));
-    cy.get('.mask_phone_short').type("687 87 87");
-
-    // cy.get('.credit_buy').click();
+    cy.get('.credit_buy').click();
   })
 })
